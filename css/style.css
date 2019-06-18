@@ -1,0 +1,30 @@
+@charset "utf-8";
+/* CSS Document */
+
+.container
+{
+	padding: 40px 0 40px 0;
+}
+
+.header
+{
+	margin-bottom: 20px;
+}
+
+.navbar
+{
+	margin-bottom: 20px;
+}
+
+h3
+{
+	text-decoration: underline;
+	margin-top: 20px;
+	margin-bottom: 40px;
+}
+
+footer
+{
+	margin-bottom: -20px;
+	text-align: center;
+}
