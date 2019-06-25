@@ -1,36 +1,36 @@
 <!doctype html>
 <html lang="en">
-	<?php include "header.php";?>
+	<?php 
+		include "header.php";?>
+	<?php
+//	session_start();
+
+	$permohonanID = '';
+		if(isset($_GET['id_permohonan'])){
+	    	$permohonanID = $_GET['id_permohonan'];
+	 	} 
+	?>
 	<?php 		
-		if(isset($_POST['submit']))
-		{
-			if(!empty($_POST['id_permohonan']))
-			{				
-		
-				$result = mysql_query("SELECT * FROM permohonan WHERE id_permohonan = '".$_GET['permohonanID']."'") or die(mysql_error());     
+		$result = mysql_query("SELECT * FROM permohonan WHERE id_permohonan = '".$permohonanID."'") or die(mysql_error());         
 						   
-				if(mysql_num_rows($result) == 1)
-				{                   
-					$row = mysql_fetch_array( $result );
-					
-					$result_peralatan1 = mysql_query("SELECT * FROM peralatan WHERE no_aset = '".$row['peralatan1']."'") or die(mysql_error());
-					$row1 = mysql_fetch_array( $result_peralatan1 );
+		if(mysql_num_rows($result) == 1)
+		{                  
+			$row = mysql_fetch_array( $result );
+			
+			$result_peralatan1 = mysql_query("SELECT * FROM peralatan WHERE no_aset = '".$row['peralatan1']."'") or die(mysql_error());
+			$row1 = mysql_fetch_array( $result_peralatan1 );
 
-					$result_peralatan2 = mysql_query("SELECT * FROM peralatan WHERE no_aset = '".$row['peralatan2']."'") or die(mysql_error());
-					$row2 = mysql_fetch_array( $result_peralatan2 );
-					
+			$result_peralatan2 = mysql_query("SELECT * FROM peralatan WHERE no_aset = '".$row['peralatan2']."'") or die(mysql_error());
+			$row2 = mysql_fetch_array( $result_peralatan2 );
+			
 
-					$result_peralatan3 = mysql_query("SELECT * FROM peralatan WHERE no_aset = '".$row['peralatan3']."'") or die(mysql_error());
-					$row3 = mysql_fetch_array( $result_peralatan3 );
-				}
-				else
-				{
-					//echo "<script>alert('Nombor rujukan tiada dalam sistem'); window.location = './semak.php';</script>";
-				}
-			}
-		
-			else
-					echo "<script>alert('Sila isi ruangan kosong'); window.location = './semak.php';</script>";
+			$result_peralatan3 = mysql_query("SELECT * FROM peralatan WHERE no_aset = '".$row['peralatan3']."'") or die(mysql_error());
+			$row3 = mysql_fetch_array( $result_peralatan3 );
+		}
+		else
+		{
+			echo '<script> alert("'.$permohonanID.'")</script>';
+			//echo "<script>alert('Nombor rujukan tiada dalam sistem'); window.location = './semak.php';</script>";
 		}
 	?>
   <body>
@@ -38,14 +38,11 @@
 		<div class="col-lg-12">
 			<div class="card">
 			  <div class="card-body shadow">
-				<img src="img/3.png" class="img-fluid header" alt="Responsive image">
+				<center><img src="img/6.png" class="img-fluid header" alt="Responsive image"></center>
 				<?php include "navbar.php"; ?>
 				<div class="row justify-content-md-center">
 					<div class="col col-lg-8" id="printableArea">
-						<center><h3>
-						  Maklumat Permohonan Sistem e-Peralatan 
-						  <!--<small class="text-muted">With faded secondary text</small> -->
-						</center></h3>
+						
 						<h4>
 						  Maklumat Pemohon
 						</h4>
@@ -53,7 +50,7 @@
 						  <tbody>
 							<tr>
 							  <th scope="row">No. Permohonan</th>
-							  <td><?php echo $_POST['id_permohonan'] ?></td>
+							  <td><?php echo $_GET['id_permohonan'] ?></td>
 							</tr>
 							<tr>
 							  <th scope="row">Nama</th>
@@ -85,24 +82,25 @@
 							</tr>
 							<tr>
 							  <th scope="row">Status</th>
+							  <td>
 								<?php 
 								
 									if($row['status'] == '0')
 									{
-										echo "<td class='bg-warning'>Sedang Dalam Proses</td>";
+										echo "Sedang Dalam Proses";
 									}
 									
 									else if($row['status'] == '1')
 									{
-										echo "<td class='bg-success'>Diluluskan</td>";
+										echo "Diluluskan";
 									}
 									
 									else
 									{
-										echo "<td class='bg-danger'>Tidak Diluluskan</td>";
+										echo "Tidak Diluluskan";
 									}
 								
-								?>
+								?>							  </td>
 							</tr>
 						  </tbody>
 						</table>
@@ -139,7 +137,7 @@
 							</tr>
 						  </tbody>
 						</table>
-						<center><input type="button" onClick="printDiv('printableArea')" value="Cetak Maklumat Ini!" class="btn btn-primary btn-sm" role="button" /></center>
+						
 					</div>
 				</div>
 				<?php include "footer.php";?>

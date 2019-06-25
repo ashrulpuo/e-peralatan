@@ -20,18 +20,20 @@
 					<div class="col col-lg-8">
 						<center>
           
-						<form class="form-inline" method="POST" action="semakan.php">
+						<form class="form-inline" method="GET" action="semakan.php">
 						  <div class="form-group mb-2">
-							
+							<?
+							$value =  $_POST['id_permohonan'];
+							?>
                 <label for="staticEmail2" class="sr-only"><em><font size="2">No. 
                 Permohonan</font></em></label>
-							<input type="text" readonly class="form-control-plaintext" id="staticEmail2" value="No. Permohonan" name="id_permohonan">
+							<input type="text" readonly class="form-control-plaintext" id="staticEmail2" value="No. Permohonan" name="test">
 						  </div>
 						  <div class="form-group mx-sm-3 mb-2">
-							
+				
                 <label for="inputPassword2" class="sr-only"><em><font size="2">No. 
                 Permohonan</font></em></label>
-							<input type="text" class="form-control" id="inputPassword2" placeholder="No. Permohonan" name="id_permohonan">
+							<input type="text" class="form-control" id="inputPassword2" value="" placeholder="No. Permohonan" name="id_permohonan">
 						  </div>
 						  
               <button type="submit" name="submit" class="btn btn-primary mb-2"><em><font size="2">Semak 

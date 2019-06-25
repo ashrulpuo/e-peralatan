@@ -28,7 +28,7 @@
 		<div class="col-lg-12">
 			<div class="card">
 			  <div class="card-body shadow">
-				<img src="img/3.png" class="img-fluid header" alt="Responsive image">
+				<center><img src="img/6.png" class="img-fluid header" alt="Responsive image"></center>
 				<?php include "navbar.php"; ?>
 				<div class="row justify-content-md-center">
 					<div class="col col-lg-8" id="printableArea">

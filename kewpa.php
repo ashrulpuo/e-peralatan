@@ -128,11 +128,31 @@ while($rows=mysql_fetch_array($result))
     </tr>
     
     <?php
-      //$test="SELECT * FROM permohonan WHERE id_permohonan='".$permohonanID."'";
-      $test = "SELECT permohonan.*, a.peralatan AS nama_peralatan1, b.peralatan as nama_peralatan2, c.peralatan as nama_peralatan3 FROM permohonan JOIN peralatan a ON permohonan.peralatan1 = a.no_aset JOIN peralatan b ON permohonan.peralatan2 = b.no_aset JOIN peralatan c ON permohonan.peralatan3 = c.no_aset";
-      $test=mysql_query($test);
-      while($lists=mysql_fetch_array($test)) { 
+        $all="SELECT * FROM permohonan WHERE id_permohonan='".$permohonanID."'";
+        $all=mysql_query($all);
+        while($items=mysql_fetch_array($all)) { 
+        $peralatan1 = $items['peralatan1'];
+        $peralatan2 = $items['peralatan2'];
+        $peralatan3 = $items['peralatan3'];
+      };
 
+      
+      
+      if ($peralatan1 == 'tiada') {
+        $test = "SELECT permohonan.*, b.peralatan as nama_peralatan2, c.peralatan as nama_peralatan3 FROM permohonan JOIN peralatan b ON permohonan.peralatan2 = b.no_aset JOIN peralatan c ON permohonan.peralatan3 = c.no_aset WHERE id_permohonan='".$permohonanID."'";
+      } 
+
+      if($peralatan1 != 'tiada' && $peralatan2 != 'tiada' && $peralatan3 != 'tiada') {
+        $test = "SELECT permohonan.*, a.peralatan AS nama_peralatan1, b.peralatan as nama_peralatan2, c.peralatan as nama_peralatan3 FROM permohonan JOIN peralatan a ON permohonan.peralatan1 = a.no_aset JOIN peralatan b ON permohonan.peralatan2 = b.no_aset JOIN peralatan c ON permohonan.peralatan3 = c.no_aset  WHERE id_permohonan='".$permohonanID."'";
+      }
+          
+          $test=mysql_query($test);
+          while($lists=mysql_fetch_array($test)) { 
+      
+      $tarikhPulang="SELECT * FROM pulang WHERE id_permohonan='".$permohonanID."'";
+        $tarikhPulang=mysql_query($tarikhPulang);
+        while($pulangs=mysql_fetch_array($tarikhPulang)) { 
+      
     ?>
     <tr>
       <td></td>
@@ -141,8 +161,8 @@ while($rows=mysql_fetch_array($result))
       <td><?php echo $lists['tarikh_pinjam']; ?></td>
       <td><?php echo $lists['tarikh_dijangkapulang']; ?></td>
       <td><?php echo ($lists['status'] == 1) ? 'Lulus' : 'Tidak Lulus' ; ?></td>
-      <td></td>
-      <td></td>
+      <td><?php echo $pulangs['tarikh_pulang']; ?></td>
+      <td><?php echo $pulangs['tarikh_pulang']; ?></td>
       <td></td>
     </tr> <tr>
       <td></td>
@@ -151,8 +171,8 @@ while($rows=mysql_fetch_array($result))
       <td><?php echo $lists['tarikh_pinjam']; ?></td>
       <td><?php echo $lists['tarikh_dijangkapulang']; ?></td>
       <td><?php echo ($lists['status'] == 1) ? 'Lulus' : 'Tidak Lulus' ; ?></td>
-      <td></td>
-      <td></td>
+      <td><?php echo $pulangs['tarikh_pulang']; ?></td>
+      <td><?php echo $pulangs['tarikh_pulang']; ?></td>
       <td></td>
     </tr> 
     <tr>
@@ -162,11 +182,11 @@ while($rows=mysql_fetch_array($result))
       <td><?php echo $lists['tarikh_pinjam']; ?></td>
       <td><?php echo $lists['tarikh_dijangkapulang']; ?></td>
       <td><?php echo ($lists['status'] == 1) ? 'Lulus' : 'Tidak Lulus' ; ?></td>
-      <td></td>
-      <td></td>
+      <td><?php echo $pulangs['tarikh_pulang']; ?></td>
+      <td><?php echo $pulangs['tarikh_pulang']; ?></td>
 	    <td></td>
     </tr> 
-    <?php } ?> 
+    <?php }} ?> 
     
   </table>
   <p>&nbsp;</p>

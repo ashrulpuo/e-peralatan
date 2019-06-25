@@ -22,8 +22,30 @@ if(isset($_GET['permohonanID'])){
 if(isset($_POST['submit']))
 {
 	if(!empty($_POST['nama_pemulang']))
-	{				
+	{		
+
+			
 		mysql_query("INSERT INTO pulang (nama_pemulang,jawatan_pemulang,tarikh_pulang, id_permohonan) VALUES ('".$_POST['nama_pemulang']."','".$_POST['jawatan_pemulang']."','".$_POST['tarikh_pulang']."','".$_GET['permohonanID']."')");
+
+		$check1 = $_POST['peralatan1'];
+		$check2 = $_POST['peralatan2'];
+		$check3 = $_POST['peralatan3'];
+
+		if($check1) 
+		{
+		    mysql_query("UPDATE peralatan SET peralatan_status = '0' WHERE no_aset ='".$check1."'");
+		} 
+
+		if($check2) 
+		{
+		    mysql_query("UPDATE peralatan SET peralatan_status = '0' WHERE no_aset ='".$check2."'");
+		} 
+
+		if($check3) 
+		{
+		    mysql_query("UPDATE peralatan SET peralatan_status = '0' WHERE no_aset ='".$check3."'");
+		} 
+		
 
 				//echo "<script>
 				//alert('Permohonan anda telah diterima');
@@ -37,7 +59,7 @@ if(isset($_POST['submit']))
 
 		$_SESSION['no_pemulang'] = $no_pemulang;
 
-		header('Location: cetak.php');
+		header('Location: senarai.php');
 	}
 
 	else
@@ -58,7 +80,7 @@ if(isset($_POST['submit']))
 							<h3 align="left"> <span class="style2">Nama Pemulang </span> 
 								<!--<small class="text-muted">With faded secondary text</small> -->
 							</h3>
-							<form method="POST" action="<?php echo $_SERVER['REQUEST_URI'];?>" onSubmit="window.location.reload()">
+							<form method="POST" action="<?php echo $_SERVER['REQUEST_URI'];?>" id="pulangForm" onSubmit="window.location.reload()">
 
 								<div class="form-group row">
 
@@ -103,16 +125,15 @@ if(isset($_POST['submit']))
 													$peralatan3 = $lists['peralatan3'];
 													?>
 													
-													
 													<?php if ($peralatan1 != '' || $peralatan2 != '' || $peralatan3 != '' ) { ?>
 														<li>
-															<label><input type="checkbox" name="peraltan1" value="<?php echo $lists['peralatan1']; ?>"><?php echo $lists['peralatan1']; ?></label>
+															<label><input type="checkbox" id="peralatan1" name="peralatan1" value="<?php echo $lists['peralatan1']; ?>"><?php echo $lists['peralatan1']; ?></label>
 														</li>
 														<li>
-															<label><input type="checkbox" name="peraltan2" value="<?php echo $lists['peralatan2']; ?>"><?php echo $lists['peralatan2']; ?></label>
+															<label><input type="checkbox" id="peralatan2" name="peralatan2" value="<?php echo $lists['peralatan2']; ?>"><?php echo $lists['peralatan2']; ?></label>
 														</li>
 														<li>
-															<label><input type="checkbox" name="peraltan1" value="<?php echo $lists['peralatan2']; ?>"><?php echo $lists['peralatan2']; ?></label>
+															<label><input type="checkbox" id="peralatan3" name="peralatan3" value="<?php echo $lists['peralatan3']; ?>"><?php echo $lists['peralatan3']; ?></label>
 														</li>
 														<?php 
 													}
@@ -133,7 +154,7 @@ if(isset($_POST['submit']))
 								<div class="form-group row">
 									<div class="col-sm-10">
 
-										<button type="submit" name="submit" align="center" class="btn btn-primary btn-sm"><em>Sahkan Pemulangan</em></button>
+										<button type="submit" name="submit" id="submit" align="center" class="btn btn-primary btn-sm"><em>Sahkan Pemulangan</em></button>
 
 
 										<a href="senarai.php" class="btn btn-dark btn-sm" role="button">Kembali <<</a>
@@ -157,8 +178,10 @@ if(isset($_POST['submit']))
 
 	<!-- Optional JavaScript -->
 	<!-- jQuery first, then Popper.js, then Bootstrap JS -->
+	<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
 	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
 	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+	
 </body>
 </html>
