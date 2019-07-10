@@ -27,13 +27,13 @@
 							?>
                 <label for="staticEmail2" class="sr-only"><em><font size="2">No. 
                 Permohonan</font></em></label>
-							<input type="text" readonly class="form-control-plaintext" id="staticEmail2" value="No. Permohonan" name="test">
+							<input type="text" readonly class="form-control-plaintext" id="staticEmail2" value="No. Permohonan" name="test" >
 						  </div>
 						  <div class="form-group mx-sm-3 mb-2">
 				
                 <label for="inputPassword2" class="sr-only"><em><font size="2">No. 
                 Permohonan</font></em></label>
-							<input type="text" class="form-control" id="inputPassword2" value="" placeholder="No. Permohonan" name="id_permohonan">
+							<input type="text" class="form-control" id="inputPassword2" value="" placeholder="No. Permohonan" name="id_permohonan" autocomplete="off">
 						  </div>
 						  
               <button type="submit" name="submit" class="btn btn-primary mb-2"><em><font size="2">Semak 

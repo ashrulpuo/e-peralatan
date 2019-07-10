@@ -2,66 +2,59 @@
 <html lang="en">
 <style type="text/css">
 	<!--
-	.style2 {
-		font-weight: bold;
-		font-family: "Times New Roman", Times, serif;
-		font-size: 18px;
-	}
+	.style2 {font-weight: bold; font-family: Arial, Helvetica, sans-serif;}
+	.style3 {font-family: Arial, Helvetica, sans-serif}
+	.style4 {font-family: Georgia, "Times New Roman", Times, serif}
 	-->
 </style>
 <?php include "header.php";?>
-<?php
-$permohonanID = '';
-if(isset($_GET['permohonanID'])){
-	$permohonanID = $_GET['permohonanID'];
-    	// 	echo $permohonanID;
-} 
-?>
 <?php 
 
 if(isset($_POST['submit']))
 {
-	if(!empty($_POST['nama_pemulang']))
-	{		
+	if(!empty($_POST['nama_a']))
+	{				
+		mysql_query("INSERT INTO tandatangan (nama_a,jawatan_a,tarikh_a,nama_a,jawatan_a,tarikh_a,nama_a,jawatan_a,tarikh_a,nama_a,jawatan_a,tarikh_a) VALUES ('".$_POST['nama_pemohon']."','".$_POST['jawatan']."','".$_POST['nama_unit']."','".$_POST['tujuan']."','".$_POST['tempat_digunakan']."','".$_POST['tarikh_pinjam']."','".$_POST['tarikh_dijangkapulang']."','".$_POST['peralatan1']."','".$_POST['peralatan2']."','".$_POST['peralatan3']."')");
 
-			
-		mysql_query("INSERT INTO pulang (nama_pemulang,jawatan_pemulang,tarikh_pulang, id_permohonan) VALUES ('".$_POST['nama_pemulang']."','".$_POST['jawatan_pemulang']."','".$_POST['tarikh_pulang']."','".$_GET['permohonanID']."')");
-
+		//cahnge peralatan status to 1 = not available 
 		$check1 = $_POST['peralatan1'];
 		$check2 = $_POST['peralatan2'];
 		$check3 = $_POST['peralatan3'];
 
 		if($check1) 
 		{
-		    mysql_query("UPDATE peralatan SET peralatan_status = '0' WHERE no_aset ='".$check1."'");
+		    mysql_query("UPDATE peralatan SET peralatan_status = '1' WHERE no_aset ='".$check1."'");
 		} 
 
 		if($check2) 
 		{
-		    mysql_query("UPDATE peralatan SET peralatan_status = '0' WHERE no_aset ='".$check2."'");
+		    mysql_query("UPDATE peralatan SET peralatan_status = '1' WHERE no_aset ='".$check2."'");
 		} 
 
 		if($check3) 
 		{
-		    mysql_query("UPDATE peralatan SET peralatan_status = '0' WHERE no_aset ='".$check3."'");
+		    mysql_query("UPDATE peralatan SET peralatan_status = '1' WHERE no_aset ='".$check3."'");
 		} 
 		
-
-				//echo "<script>
-				//alert('Permohonan anda telah diterima');
-				//window.location.href='cetak.php';
-				//</script>";
-
-		$result = mysql_query("SELECT * FROM pulang ORDER BY id_pemulang DESC") or die(mysql_error());
-		$row = mysql_fetch_array( $result );
-
-		$no_pemulang = $row['id_pemulang'];
-
-		$_SESSION['no_pemulang'] = $no_pemulang;
-
-		header('Location: cetak.php');
-	}
-
+		?>
+		<?php
+			$test = "SELECT * FROM permohonan ORDER BY id_permohonan DESC LIMIT 1 ";
+			$test=mysql_query($test);
+			while($lists=mysql_fetch_array($test)) { 
+				$id = $lists['id_permohonan'];
+			}
+		?>
+		
+		<script type="text/javascript">
+			alert("Permohonan Anda Direkodkan. Sila datang ke BICT untuk pengambilan aset dan maklumkan kepada Staff BICT (Puan Nura/ Encik Isham), no permohanan anda adalah : " + '<?php echo $id; ?>');
+			window.location.href='index.php';
+		</script>
+		
+		
+		<?php
+		
+	}	
+	
 	else
 		echo '<script language="javascript">window.alert("Sila isi ruangan kosong");</script>';
 }
@@ -73,14 +66,13 @@ if(isset($_POST['submit']))
 			<div class="card">
 				<div class="card-body shadow">
 					<center><img src="img/6.png" class="img-fluid header" alt="Responsive image"></center>
-					<?php include "navbar2.php"; ?>
+					<?php include "navbar.php"; ?>
 					<div class="row justify-content-md-center">
 						<div class="col col-lg-8">
 
+										<form method="POST" action="<?php echo $_SERVER['REQUEST_URI'];?>" onSubmit="window.location.reload()">
 
-							<form method="POST" action="<?php echo $_SERVER['REQUEST_URI'];?>" id="pulangForm" onSubmit="window.location.reload()">
-
-								<body>
+							
       <table border = "3" width = "791" height = "457">
          <tr>
             <td width="337" height="215">
@@ -148,7 +140,8 @@ if(isset($_POST['submit']))
 
 										<button type="submit" name="submit" id="submit" align="center" class="btn btn-primary btn-sm"><em>Sahkan Tandatangan</em></button>
 
-
+</div>
+</form>
 										<a href="senarai.php" class="btn btn-dark btn-sm" role="button">Kembali <<</a>
 
 

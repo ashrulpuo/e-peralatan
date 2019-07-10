@@ -44,6 +44,14 @@ if(isset($_POST['submit']))
 				$id = $lists['id_permohonan'];
 			}
 		?>
+
+		<?php 
+			mysql_query("INSERT INTO pulang (id_permohonan,peralatan,status) VALUES ('".$id."','".$_POST['peralatan1']."',0)");
+
+			mysql_query("INSERT INTO pulang (id_permohonan,peralatan,status) VALUES ('".$id."','".$_POST['peralatan2']."',0)");
+
+			mysql_query("INSERT INTO pulang (id_permohonan,peralatan,status) VALUES ('".$id."','".$_POST['peralatan3']."',0)");
+		?>
 		
 		<script type="text/javascript">
 			alert("Permohonan Anda Direkodkan. Sila datang ke BICT untuk pengambilan aset dan maklumkan kepada Staff BICT (Puan Nura/ Encik Isham), no permohanan anda adalah : " + '<?php echo $id; ?>');
@@ -76,14 +84,14 @@ if(isset($_POST['submit']))
 									
 									<label for="inputEmail3" class="col-sm-4 col-form-label style3"><font size="2">Nama</font></label>
 									<div class="col-sm-8">
-										<input type="text" class="form-control" id="inputEmail3" placeholder="Nama" name="nama_pemohon">
+										<input type="text" class="form-control" id="inputEmail3" placeholder="Nama" name="nama_pemohon" autocomplete="off">
 									</div>
 								</div>
 								<div class="form-group row">
 									
 									<label for="inputPassword3" class="col-sm-4 col-form-label style3"><font size="2">Jawatan</font></label>
 									<div class="col-sm-8">
-										<input type="text" class="form-control" id="inputPassword3" placeholder="Jawatan" name="jawatan">
+										<input type="text" class="form-control" id="inputPassword3" placeholder="Jawatan" name="jawatan" autocomplete="off">
 									</div>
 								</div>
 								<div class="form-group row">
@@ -125,7 +133,7 @@ if(isset($_POST['submit']))
 										
 										<label for="inputPassword3" class="col-sm-4 col-form-label style3"><font size="2">Tujuan </font></label>
 										<div class="col-sm-8">
-											<input type="text" class="form-control" id="inputPassword3" placeholder="Tujuan" name="tujuan">
+											<input type="text" class="form-control" id="inputPassword3" placeholder="Tujuan" name="tujuan" autocomplete="off">
 										</div>
 									</div>
 									<div class="form-group row">
@@ -133,7 +141,7 @@ if(isset($_POST['submit']))
 										<label for="inputPassword3" class="style3 col-form-label col-sm-4"><font size="2">Tempat 
 										Digunakan</font></label>
 										<div class="col-sm-8">
-											<input type="text" class="form-control" id="inputPassword3" placeholder="Tempat Digunakan" name="tempat_digunakan">
+											<input type="text" class="form-control" id="inputPassword3" placeholder="Tempat Digunakan" name="tempat_digunakan" autocomplete="off">
 										</div>
 									</div>
 									
@@ -143,7 +151,7 @@ if(isset($_POST['submit']))
 										<label for="inputPassword3" class="col-sm-4 col-form-label style3"><font size="2">Tarikh 
 										Pinjam</font></label>
 										<div class="col-sm-8">
-											<input name="tarikh_pinjam" id="datepicker" width="312" />
+											<input name="tarikh_pinjam" id="datepicker" width="312" autocomplete="off"/>
 											<script>
 												$('#datepicker').datepicker({ format: 'dd mmmm yyyy' });
 											</script>
@@ -154,7 +162,7 @@ if(isset($_POST['submit']))
 										<label for="inputPassword3" class="col-sm-4 col-form-label style3"><font size="2">Tarikh Dijangka
 										Pulang</font></label>
 										<div class="col-sm-8">
-											<input name="tarikh_dijangkapulang" id="datepicker2" width="312" />
+											<input name="tarikh_dijangkapulang" id="datepicker2" width="312" autocomplete="off"/>
 											<script>
 												$('#datepicker2').datepicker({ format: 'dd mmmm yyyy' });
 											</script>

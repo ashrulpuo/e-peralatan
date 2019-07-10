@@ -37,7 +37,7 @@
 									?>
 									<option value="<?php echo $row['peralatan1'];?>"><?php echo ">> ".$row_peralatan_1['peralatan']." - ".$row_peralatan_1['model']." - ".$row_peralatan_1['no_aset']." <<";?></option>
 									<?php
-										$sql1 = "SELECT * FROM peralatan ORDER BY peralatan ASC";
+										$sql1 = "SELECT * FROM peralatan WHERE peralatan_status=0 ORDER BY peralatan ASC";
 										$rs1 = mysql_query($sql1);
 										
 										while($rows1 = mysql_fetch_array($rs1))
@@ -58,7 +58,7 @@
 									?>
 									<option value="<?php echo $row['peralatan2'];?>"><?php echo ">> ".$row_peralatan_2['peralatan']." - ".$row_peralatan_2['model']." - ".$row_peralatan_2['no_aset']." <<";?></option>
 									<?php
-										$sql2 = "SELECT * FROM peralatan ORDER BY peralatan ASC";
+										$sql2 = "SELECT * FROM peralatan WHERE peralatan_status=0 ORDER BY peralatan ASC";
 										$rs2 = mysql_query($sql2);
 										
 										while($rows2 = mysql_fetch_array($rs2))
@@ -79,7 +79,7 @@
 									?>
 									<option value="<?php echo $row['peralatan3'];?>"><?php echo ">> ".$row_peralatan_3['peralatan']." - ".$row_peralatan_3['model']." - ".$row_peralatan_3['no_aset']." <<";?></option>
 									<?php
-										$sql3 = "SELECT * FROM peralatan ORDER BY peralatan ASC";
+										$sql3 = "SELECT * FROM peralatan WHERE peralatan_status=0 ORDER BY peralatan ASC";
 										$rs3 = mysql_query($sql3);
 										
 										while($rows3 = mysql_fetch_array($rs3))

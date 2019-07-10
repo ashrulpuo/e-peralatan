@@ -137,56 +137,160 @@ while($rows=mysql_fetch_array($result))
       };
 
       
-      
-      if ($peralatan1 == 'tiada') {
-        $test = "SELECT permohonan.*, b.peralatan as nama_peralatan2, c.peralatan as nama_peralatan3 FROM permohonan JOIN peralatan b ON permohonan.peralatan2 = b.no_aset JOIN peralatan c ON permohonan.peralatan3 = c.no_aset WHERE id_permohonan='".$permohonanID."'";
-      } 
-
-      if($peralatan1 != 'tiada' && $peralatan2 != 'tiada' && $peralatan3 != 'tiada') {
-        $test = "SELECT permohonan.*, a.peralatan AS nama_peralatan1, b.peralatan as nama_peralatan2, c.peralatan as nama_peralatan3 FROM permohonan JOIN peralatan a ON permohonan.peralatan1 = a.no_aset JOIN peralatan b ON permohonan.peralatan2 = b.no_aset JOIN peralatan c ON permohonan.peralatan3 = c.no_aset  WHERE id_permohonan='".$permohonanID."'";
-      }
-          
-          $test=mysql_query($test);
-          while($lists=mysql_fetch_array($test)) { 
-      
       $tarikhPulang="SELECT * FROM pulang WHERE id_permohonan='".$permohonanID."'";
         $tarikhPulang=mysql_query($tarikhPulang);
-        while($pulangs=mysql_fetch_array($tarikhPulang)) { 
-      
+        while ($pulangs=mysql_fetch_array($tarikhPulang)) {
+          $is[] = $pulangs['tarikh_pulang'];
+        }
     ?>
     <tr>
-      <td></td>
-      <td><?php echo $lists['peralatan1']; ?></td>
-      <td><?php echo $lists['nama_peralatan1'] ; ?></td>
-      <td><?php echo $lists['tarikh_pinjam']; ?></td>
-      <td><?php echo $lists['tarikh_dijangkapulang']; ?></td>
-      <td><?php echo ($lists['status'] == 1) ? 'Lulus' : 'Tidak Lulus' ; ?></td>
-      <td><?php echo $pulangs['tarikh_pulang']; ?></td>
-      <td><?php echo $pulangs['tarikh_pulang']; ?></td>
-      <td></td>
-    </tr> <tr>
-      <td></td>
-      <td><?php echo $lists['peralatan2']; ?></td>
-      <td><?php echo $lists['nama_peralatan2'] ; ?></td>
-      <td><?php echo $lists['tarikh_pinjam']; ?></td>
-      <td><?php echo $lists['tarikh_dijangkapulang']; ?></td>
-      <td><?php echo ($lists['status'] == 1) ? 'Lulus' : 'Tidak Lulus' ; ?></td>
-      <td><?php echo $pulangs['tarikh_pulang']; ?></td>
-      <td><?php echo $pulangs['tarikh_pulang']; ?></td>
-      <td></td>
-    </tr> 
+      <?php
+      if ($peralatan1) {
+        $tess= "SELECT peralatan1,tarikh_pinjam,tarikh_dijangkapulang,status FROM permohonan WHERE id_permohonan = '".$permohonanID."'";
+       
+
+          $test=mysql_query($tess);
+          while($lists=mysql_fetch_array($test)) {
+
+          if(($lists['peralatan1']) != 'Tiada'){
+
+            $per = $lists['peralatan1'];
+            $string = preg_replace('/\s+/', '', $per);
+            $result_peralatan_1 = mysql_query("SELECT * FROM peralatan WHERE no_aset = '".$string."'") or die(mysql_error());
+            $row_peralatan_1 = mysql_fetch_array( $result_peralatan_1 );
+
+            echo "<td></td>";
+            echo "<td>".$lists['peralatan1']."</td>";
+            echo "<td>".$row_peralatan_1["peralatan"]."</td>";
+            echo "<td>".$lists['tarikh_pinjam']."</td>";
+            echo "<td>".$lists['tarikh_dijangkapulang']."</td>";
+            if ($lists['status'] == 1) {
+              echo "<td>".'Lulus'."</td>";
+            } else {
+              echo "<td>".'Tidak Lulus'."</td>";
+            }
+            if (!isset($is[0])) {
+              $is[0] == null;
+            } else {
+              echo "<td>".$is[0]."</td>";
+            }
+
+            if (!isset($is[0])) {
+              $is[0] == null;
+            } else {
+              echo "<td>".$is[0]."</td>";
+            }
+
+            echo "<td></td>";
+            
+          }
+        } 
+      } else {
+        return 'error';
+      }
+      ?>
+    </tr>
+
+<tr>
+      <?php
+      if ($peralatan2) {
+        $tess= "SELECT peralatan2,tarikh_pinjam,tarikh_dijangkapulang,status FROM permohonan WHERE id_permohonan = '".$permohonanID."'";
+       
+
+          $test=mysql_query($tess);
+          while($lists=mysql_fetch_array($test)) {
+
+          if(($lists['peralatan2']) != 'Tiada'){
+
+            $per = $lists['peralatan2'];
+            $string = preg_replace('/\s+/', '', $per);
+            $result_peralatan_1 = mysql_query("SELECT * FROM peralatan WHERE no_aset = '".$string."'") or die(mysql_error());
+            $row_peralatan_1 = mysql_fetch_array( $result_peralatan_1 );
+
+          echo "<td></td>";
+          echo "<td>".$lists['peralatan2']."</td>";
+          echo "<td>".$row_peralatan_1['peralatan']."</td>";
+          echo "<td>".$lists['tarikh_pinjam']."</td>";
+          echo "<td>".$lists['tarikh_dijangkapulang']."</td>";
+          if ($lists['status'] == 1) {
+            echo "<td>".'Lulus'."</td>";
+          } else {
+            echo "<td>".'Tidak Lulus'."</td>";
+          }
+
+          if (!isset($is[1])) {
+            $is[1] == null;
+          } else {
+            echo "<td>".$is[1]."</td>";
+          }
+
+          if (!isset($is[1])) {
+            $is[1] == null;
+          } else {
+            echo "<td>".$is[1]."</td>";
+          }
+
+          echo "<td></td>";
+          } 
+        } 
+      } else {
+        return '';
+      }
+      ?>
+    </tr>
+
     <tr>
-      <td></td>
-      <td><?php echo $lists['peralatan3']; ?></td>
-      <td><?php echo $lists['nama_peralatan3'] ; ?></td>
-      <td><?php echo $lists['tarikh_pinjam']; ?></td>
-      <td><?php echo $lists['tarikh_dijangkapulang']; ?></td>
-      <td><?php echo ($lists['status'] == 1) ? 'Lulus' : 'Tidak Lulus' ; ?></td>
-      <td><?php echo $pulangs['tarikh_pulang']; ?></td>
-      <td><?php echo $pulangs['tarikh_pulang']; ?></td>
-	    <td></td>
-    </tr> 
-    <?php }} ?> 
+      <?php
+      if ($peralatan3) {
+        $tess= "SELECT peralatan3,tarikh_pinjam,tarikh_dijangkapulang,status FROM permohonan WHERE id_permohonan = '".$permohonanID."'";
+       
+
+          $test=mysql_query($tess);
+          while($lists=mysql_fetch_array($test)) {
+
+          if(($lists['peralatan3']) != 'Tiada'){
+
+            $per = $lists['peralatan3'];
+            $string = preg_replace('/\s+/', '', $per);
+            $result_peralatan_1 = mysql_query("SELECT * FROM peralatan WHERE no_aset = '".$string."'") or die(mysql_error());
+            $row_peralatan_1 = mysql_fetch_array( $result_peralatan_1 );
+
+          echo "<td></td>";
+          echo "<td>".$lists['peralatan3']."</td>";
+          echo "<td>".$row_peralatan_1['peralatan']."</td>";
+          echo "<td>".$lists['tarikh_pinjam']."</td>";
+          echo "<td>".$lists['tarikh_dijangkapulang']."</td>";
+          if ($lists['status'] == 1) {
+            echo "<td>".'Lulus'."</td>";
+          } else {
+            echo "<td>".'Tidak Lulus'."</td>";
+          }
+          
+          if (!isset($is[2])) {
+
+          } else {
+            echo "<td>".$is[2]."</td>";
+          }
+
+          if (!isset($is[2])) {
+
+          } else {
+            echo "<td>".$is[2]."</td>";
+          }
+
+          
+          echo "<td></td>";
+          } 
+        } 
+      } else {
+        return '';
+      }
+      ?>
+    </tr>
+
+    
+    
+    <?php// } ?> 
     
   </table>
   <p>&nbsp;</p>

@@ -17,6 +17,9 @@
 	?>
 	<?php
 
+		$parameter = (isset($_GET['page']));
+		//echo $parameter ;
+		
 		$tbl_name="permohonan";		//your table name
 		// How many adjacent page should be shown on each side?
 		$adjacents = 3;
@@ -145,7 +148,7 @@
 								
 								
 								
-								echo '<th scope="col" style="text-align:center;">Pulang/Tidak Pulang</th>';
+								echo '<th scope="col" style="text-align:center;">Status Pemulangan</th>';
 								
 								
 								
@@ -185,7 +188,7 @@
 									}
 									
 									
-									echo '<td style="text-align:center;"><a href="pulang.php?permohonanID=' .$row['id_permohonan']. '"class="btn btn-primary btn-sm" role="button">Pulang</a>
+									echo '<td style="text-align:center;"><a href="pulang.php?permohonanID=' .$row['id_permohonan']. '&page='.$parameter.'"class="btn btn-primary btn-sm" role="button">Pulang</a>
 									
 								
 									</td>';

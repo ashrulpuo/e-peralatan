@@ -47,7 +47,7 @@
 						<form method="POST" action="<?php echo $_SERVER['REQUEST_URI'];?>" onSubmit="window.location.reload()">
 						  <div class="form-group">
 							<label for="exampleInputEmail1">ID Pengguna</label>
-							<input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="ID Pengguna" name="username">
+							<input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="ID Pengguna" name="username" autocomplete="off">
 						  </div>
 						  <div class="form-group">
 							<label for="exampleInputPassword1">Katalaluan</label>

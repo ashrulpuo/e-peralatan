@@ -13,7 +13,7 @@
 	<?php 		
 		$result = mysql_query("SELECT * FROM permohonan WHERE id_permohonan = '".$permohonanID."'") or die(mysql_error());         
 						   
-		if(mysql_num_rows($result) == 1)
+		if(mysql_num_rows($result) > 0)
 		{                  
 			$row = mysql_fetch_array( $result );
 			
@@ -26,11 +26,12 @@
 
 			$result_peralatan3 = mysql_query("SELECT * FROM peralatan WHERE no_aset = '".$row['peralatan3']."'") or die(mysql_error());
 			$row3 = mysql_fetch_array( $result_peralatan3 );
+
+			echo '<script> alert("'.$permohonanID.'")</script>';
 		}
 		else
 		{
-			echo '<script> alert("'.$permohonanID.'")</script>';
-			//echo "<script>alert('Nombor rujukan tiada dalam sistem'); window.location = './semak.php';</script>";
+			echo "<script>alert('Nombor rujukan tiada dalam sistem'); window.location = './semak.php';</script>";
 		}
 	?>
   <body>

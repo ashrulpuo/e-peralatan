@@ -24,28 +24,35 @@ if(isset($_POST['submit']))
 	if(!empty($_POST['nama_pemulang']))
 	{		
 
-			
-		mysql_query("INSERT INTO pulang (nama_pemulang,jawatan_pemulang,tarikh_pulang, id_permohonan) VALUES ('".$_POST['nama_pemulang']."','".$_POST['jawatan_pemulang']."','".$_POST['tarikh_pulang']."','".$_GET['permohonanID']."')");
-
-		$check1 = $_POST['peralatan1'];
-		$check2 = $_POST['peralatan2'];
-		$check3 = $_POST['peralatan3'];
-
-		if($check1) 
-		{
-		    mysql_query("UPDATE peralatan SET peralatan_status = '0' WHERE no_aset ='".$check1."'");
-		} 
-
-		if($check2) 
-		{
-		    mysql_query("UPDATE peralatan SET peralatan_status = '0' WHERE no_aset ='".$check2."'");
-		} 
-
-		if($check3) 
-		{
-		    mysql_query("UPDATE peralatan SET peralatan_status = '0' WHERE no_aset ='".$check3."'");
-		} 
+		//
+		//echo $_POST['peralatan1'];
 		
+		$nama = $_POST['nama_pemulang'];
+		$tarikh = $_POST['tarikh_pulang'];
+		$jawatan = $_POST['jawatan_pemulang'];
+		$alatan1 = $_POST['1'];
+		$alatan2 = $_POST['2'];
+		$alatan3 = $_POST['3'];
+
+		if ($alatan1) {
+			mysql_query("UPDATE pulang SET nama_pemulang = '$nama',jawatan_pemulang = '$jawatan',tarikh_pulang = '$tarikh',status = '1' WHERE peralatan = '$alatan1'");
+		
+			mysql_query("UPDATE peralatan SET peralatan_status = '0' WHERE no_aset ='$alatan1'");
+		}
+
+		if ($alatan2) {
+			mysql_query("UPDATE pulang SET nama_pemulang = '$nama',jawatan_pemulang = '$jawatan',tarikh_pulang = '$tarikh',status = '1' WHERE peralatan = '$alatan2'");
+		
+			mysql_query("UPDATE peralatan SET peralatan_status = '0' WHERE no_aset ='$alatan2'");
+		}
+
+		if ($alatan3) {
+			mysql_query("UPDATE pulang SET nama_pemulang = '$nama',jawatan_pemulang = '$jawatan',tarikh_pulang = '$tarikh',status = '1' WHERE peralatan = '$alatan3'");
+		
+			mysql_query("UPDATE peralatan SET peralatan_status = '0' WHERE no_aset ='$alatan3'");
+		}
+		
+
 
 				//echo "<script>
 				//alert('Permohonan anda telah diterima');
@@ -58,6 +65,7 @@ if(isset($_POST['submit']))
 		$no_pemulang = $row['id_pemulang'];
 
 		$_SESSION['no_pemulang'] = $no_pemulang;
+
 
 		header('Location: senarai.php');
 	}
@@ -73,27 +81,26 @@ if(isset($_POST['submit']))
 			<div class="card">
 				<div class="card-body shadow">
 					<center><img src="img/6.png" class="img-fluid header" alt="Responsive image"></center>
-					<?php include "navbar.php"; ?>
+					<?php include "navbar2.php"; ?>
 					<div class="row justify-content-md-center">
 						<div class="col col-lg-8">
 
 							<h3 align="left"> <span class="style2">Nama Pemulang </span> 
 								<!--<small class="text-muted">With faded secondary text</small> -->
 							</h3>
-							<form method="POST" action="<?php echo $_SERVER['REQUEST_URI'];?>" id="pulangForm" onSubmit="window.location.reload()">
-
+							<form method="POST" action="<?php echo $_SERVER['REQUEST_URI'];?>" id="pulangForm" onSubmit="window.location.reload()" >
 								<div class="form-group row">
 
 									<label for="inputEmail3" class="col-sm-4 col-form-label"><em><font size="2">Nama</font></em></label>
 									<div class="col-sm-8">
-										<input type="text" class="form-control" id="inputEmail3" placeholder="Nama" name="nama_pemulang">
+										<input type="text" class="form-control" id="inputEmail3" placeholder="Nama" name="nama_pemulang" autocomplete="off">
 									</div>
 								</div>
 								<div class="form-group row">
 
 									<label for="inputPassword3" class="col-sm-4 col-form-label"><em><font size="2">Jawatan</font></em></label>
 									<div class="col-sm-8">
-										<input type="text" class="form-control" id="inputPassword3" placeholder="Jawatan" name="jawatan_pemulang">
+										<input type="text" class="form-control" id="inputPassword3" placeholder="Jawatan" name="jawatan_pemulang" autocomplete="off">
 									</div>
 								</div>
 
@@ -104,41 +111,44 @@ if(isset($_POST['submit']))
 									<label for="inputPassword3" class="col-sm-4 col-form-label"><font size="2"><em>Tarikh 
 									Pulang</em></font></label>
 									<div class="col-sm-8">
-										<input name="tarikh_pulang" id="datepicker2" width="312" />
+										<input name="tarikh_pulang" id="datepicker2" width="312" autocomplete="off"/>
 										<script>
 											$('#datepicker2').datepicker({ format: 'dd mmmm yyyy' });
 										</script>
 									</div>
 								</div>
 								<div class="form-group row">
-									<?php 		
-									$test = "SELECT * FROM permohonan WHERE id_permohonan = '".$permohonanID."'";
-									$test=mysql_query($test)
+									<?php 
+									
+									$tarikhPulang="SELECT * FROM pulang WHERE id_permohonan='".$permohonanID."'";
+							        $tarikhPulang=mysql_query($tarikhPulang);
+							        while ($pulangs=mysql_fetch_array($tarikhPulang)) {
+							          $is[] = $pulangs['peralatan'];
+							          
+							        }
+							        //echo "<pre>";
+							        //print_r($is);
+							        //echo "</pre>";
+
+									
+									
 									?>
 									<label for="inputEmail3" class="col-sm-4 col-form-label"><em><font size="2">Peralatan</font></em></label>
 									<div class="col-sm-8">
 										<div class="row">
 											<ul class="list-unstyled">
-												<?php while($lists=mysql_fetch_array($test)) { 
-													$peralatan1 = $lists['peralatan1'];
-													$peralatan2 = $lists['peralatan2'];
-													$peralatan3 = $lists['peralatan3'];
-													?>
-													
-													<?php if ($peralatan1 != '' || $peralatan2 != '' || $peralatan3 != '' ) { ?>
-														<li>
-															<label><input type="checkbox" id="peralatan1" name="peralatan1" value="<?php echo $lists['peralatan1']; ?>"><?php echo $lists['peralatan1']; ?></label>
-														</li>
-														<li>
-															<label><input type="checkbox" id="peralatan2" name="peralatan2" value="<?php echo $lists['peralatan2']; ?>"><?php echo $lists['peralatan2']; ?></label>
-														</li>
-														<li>
-															<label><input type="checkbox" id="peralatan3" name="peralatan3" value="<?php echo $lists['peralatan3']; ?>"><?php echo $lists['peralatan3']; ?></label>
-														</li>
-														<?php 
-													}
-												}
-												?>
+												<?php
+													$semua = "SELECT * FROM pulang WHERE id_permohonan = '".$permohonanID."' and status=0";
+													$peralatan=mysql_query($semua);
+													$counter = 1;   
+													while ($items=mysql_fetch_array($peralatan)) {
+														$counter2 = $counter++;
+							          				
+							          				echo "<li>
+							                              <label><input type='checkbox' id='peralatan' name='".$counter2."' value='".$items['peralatan']."'>".$items['peralatan']."</label>
+							                            </li>";
+											    }
+												?>		
 											</ul>
 										</div>
 									</div>
@@ -157,7 +167,7 @@ if(isset($_POST['submit']))
 										<button type="submit" name="submit" id="submit" align="center" class="btn btn-primary btn-sm"><em>Sahkan Pemulangan</em></button>
 
 
-										<a href="senarai.php" class="btn btn-dark btn-sm" role="button">Kembali <<</a>
+										<a href="javascript:history.go(-1)" class="btn btn-dark btn-sm" role="button">Kembali <<</a>
 
 
 
