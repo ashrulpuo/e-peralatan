@@ -16,25 +16,17 @@ if(isset($_POST['submit']))
 	{				
 		mysql_query("INSERT INTO permohonan (nama_pemohon,jawatan,nama_unit,tujuan,tempat_digunakan,tarikh_pinjam,tarikh_dijangkapulang,peralatan1,peralatan2,peralatan3) VALUES ('".$_POST['nama_pemohon']."','".$_POST['jawatan']."','".$_POST['nama_unit']."','".$_POST['tujuan']."','".$_POST['tempat_digunakan']."','".$_POST['tarikh_pinjam']."','".$_POST['tarikh_dijangkapulang']."','".$_POST['peralatan1']."','".$_POST['peralatan2']."','".$_POST['peralatan3']."')");
 
+		$data = $_POST;
 		//cahnge peralatan status to 1 = not available 
-		$check1 = $_POST['peralatan1'];
-		$check2 = $_POST['peralatan2'];
-		$check3 = $_POST['peralatan3'];
+		$check1 = $data['peralatan1'];
+		$check2 = $data['peralatan2'];
+		$check3 = $data['peralatan3'];
 
-		if($check1) 
-		{
-		    mysql_query("UPDATE peralatan SET peralatan_status = '1' WHERE no_aset ='".$check1."'");
-		} 
+		$check1 && mysql_query("UPDATE peralatan SET peralatan_status = '1' WHERE no_aset ='".$check1."'");
+ 
+ 		$check2 && mysql_query("UPDATE peralatan SET peralatan_status = '1' WHERE no_aset ='".$check2."'");
 
-		if($check2) 
-		{
-		    mysql_query("UPDATE peralatan SET peralatan_status = '1' WHERE no_aset ='".$check2."'");
-		} 
-
-		if($check3) 
-		{
-		    mysql_query("UPDATE peralatan SET peralatan_status = '1' WHERE no_aset ='".$check3."'");
-		} 
+ 		$check3 && mysql_query("UPDATE peralatan SET peralatan_status = '1' WHERE no_aset ='".$check3."'");
 		
 		?>
 		<?php
